@@ -6,6 +6,6 @@ This is a project related to predicting NFL scores from large datasets over the 
 ###
 **dataframe.csv** - raw data on nfl scoring by game
 
-**line of best fit 3.py** - graphical representations of the dataset (both quadratic and polynomial regressions
+**line of best fit 3.py** - graphical representations of the dataset (both quadratic and polynomial regressions)
 
 **entry 3.py** - float file for a sports handicapper to enter their prediction of offensive plays ran and yards gained for a team to model potential scoring (based on both quadratic and polynomial regressions)
