@@ -6,6 +6,7 @@ from sklearn.metrics import r2_score
 import argparse
 import os
 
+
 # Function to load CSV file
 def load_data(file_path):
     try:
@@ -15,11 +16,13 @@ def load_data(file_path):
         print(f"File not found: {file_path}")
         exit(1)
 
+
 # Function to define and prepare the features and target variable
 def prepare_data(df):
     X = df[['total_snaps', 'yards_gained']]  # Adjust feature names to match your CSV
     y = df['total_points']  # Adjust target variable
     return X, y
+
 
 # Function to run Linear and Quadratic regression
 def run_models(X, y):
@@ -41,6 +44,7 @@ def run_models(X, y):
 
     return model_linear, model_poly, r2_linear, r2_poly, poly
 
+
 # Function to predict PTS using linear regression
 def predict_pts_linear(model, plays, yds):
     """Predicts PTS using linear regression."""
@@ -49,13 +53,16 @@ def predict_pts_linear(model, plays, yds):
     pts = intercept + coef[0] * plays + coef[1] * yds
     return pts
 
+
 # Function to predict PTS using quadratic regression
 def predict_pts_quadratic(model, poly, plays, yds):
     """Predicts PTS using quadratic regression."""
-    X_input = np.array([[plays, yds]])
+    # Create a DataFrame with the same feature names as used during fitting
+    X_input = pd.DataFrame([[plays, yds]], columns=['total_snaps', 'yards_gained'])
     X_poly_input = poly.transform(X_input)
     pts = model.predict(X_poly_input)
     return pts[0]
+
 
 # Function for user input and predictions
 def main():
@@ -75,7 +82,7 @@ def main():
 
     # Run the models
     model_linear, model_poly, r2_linear, r2_poly, poly = run_models(X, y)
-    
+
     print(f'Linear Regression R^2 Score: {r2_linear:.4f}')
     print(f'Quadratic Regression R^2 Score: {r2_poly:.4f}')
 
@@ -90,6 +97,7 @@ def main():
     # Predict using quadratic regression
     pts_quadratic = predict_pts_quadratic(model_poly, poly, plays, yds)
     print(f"Predicted PTS (Quadratic Regression): {pts_quadratic:.2f}")
+
 
 if __name__ == "__main__":
     main()
