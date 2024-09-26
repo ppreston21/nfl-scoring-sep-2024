@@ -5,9 +5,17 @@ from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.metrics import r2_score
 from mpl_toolkits.mplot3d import Axes3D  # Importing for 3D plotting
+import os
 
-# Load CSV data into DataFrame using the full file path
-df = pd.read_csv(r"C:\Users\pcpin\Desktop\sport gambling\dataframe.csv")
+# Define CSV file path (relative path, assuming it's in the same folder as the script)
+csv_file = 'dataframe.csv'
+
+# Load CSV data into DataFrame
+try:
+    df = pd.read_csv(csv_file)
+except FileNotFoundError:
+    print(f"Error: The file '{csv_file}' was not found. Ensure it is in the same directory as this script.")
+    exit()
 
 # Define features and target variable
 X = df[['total_snaps', 'yards_gained']]  # Adjusting feature names to match the CSV file
